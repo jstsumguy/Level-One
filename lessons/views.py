@@ -805,7 +805,6 @@ def register_event(request):
 			event.students.add(s)
 		event.save()
 
-		mail('Please follow this link to complete registration:  https://docs.google.com/forms/d/1R6-0clFVYdHeOHCm2bbYQnVTP3CP7TfKYDoKARbqoi0/viewform?usp=send_form', 'event', u.email)
 		return HttpResponse("success")
 	return HttpResponse("fail")
 
