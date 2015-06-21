@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>
+{% block title %}{% endblock %}
+</title>
+{% block styles %}
+{% endblock %}
+</head>
+<body>
+<div class="main-nav">
+	<ul class="nav nav-tabs">
+		<li role="presentation" class="active"><a href="#">Home</a></li>
+		<li role="presentation"><a href="#">Profile</a></li>
+		<li role="presentation"><a href="#">Courses</a></li>
+		<li role="presentation"><a href="#">Notifications</a></li>
+		<li role="presentation"><a href="#">Settings</a></li>
+	</ul>
+</div>
+<div class="main-content">
+{% block content %}{% endblock %}
+</div>
+{% block scripts %}{% endblock %}
+</body>
+</html>

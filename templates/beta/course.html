@@ -1,0 +1,84 @@
+{% extends "lessons/base.html" %}
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/plugins/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/plugins/jquery-ui.min.css">
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/custom/base.css">
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/custom/beta.css">
+{% endblock %}
+{% block content %}
+<!-- Sidebar -->
+<div id="wrapper">
+<!-- Page Content -->
+
+<div class="container-fluid">
+<!-- Alert notification -->
+{% if notifications %}
+<div class="notification">
+    <div class="alert alert-success alert-dismissible" role="alert">
+        <button id="{{ notifications.0.id }}" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <p>{{ notifications.0.message }}</p>
+    </div>
+</div>
+{% endif %}
+
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        <h1>{{ course.name }}
+        <span class="right"><button data-toggle="modal" data-target="#new_lesson_modal"
+        id="add_lesson" class="btn btn-default">Add</button></span>
+        </h1>
+    </div>
+</div>
+
+<div class="row">
+    {% if lessons %}
+    {% for lesson in lessons %}
+        <div class="col-md-10 col-md-offset-1">
+            <a href="{{ rp }}/beta/lesson/{{ course.id }}/{{ lesson.id }}/">{{ lesson.name }}</a>
+            <p>{{ lesson.description }}</p>
+        </div>
+    {% endfor %}
+    {% else %}
+        <div class="col-md-10 col-md-offset-1">
+            <p>Looks like you don't have any lessons yet.</p>
+        </div>
+    {% endif %}
+</div>
+
+<!-- New Lesson -->
+<div id="new_lesson_modal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">New Lesson</h4>
+            </div>
+            <div class="modal-body">
+                <form id="new_lesson_form" onsubmit="return false;">
+                    <input type="text" class="form-control" id="title" placeholder="Title" />
+                    <input type="text" class="form-control" id="description" placeholder="Description" />
+                    <input type="hidden" id="{{ course.id }}" class="course_id" />
+                    <button class="btn btn-default" type="submit">Submit</button>
+                </form>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+</div>
+
+<!-- /#page-content-wrapper -->
+</div>
+{% endblock %}
+{% block scripts %}
+<script type='text/javascript' src='{{ rp }}/static/scripts/plugins/jquery-1.11.2.min.js'></script>
+<script type="text/javascript" src="{{ rp }}/static/scripts/plugins/jquery-ui.min.js"></script>
+<script type="text/javascript" src="{{ rp }}/static/scripts/plugins/bootstrap.min.js"></script>
+<script type="text/javascript" src="{{ rp }}/static/scripts/custom/beta.js"></script>
+<script>
+$(function() {
+    $( "#tabs-min" ).tabs();
+});
+</script>
+{% endblock %}

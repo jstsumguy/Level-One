@@ -1,0 +1,12 @@
+.tab {
+	width: 100px;
+}
+
+.tab-content {
+	margin-left: 90px;
+	margin-top: 90px;
+}
+.tab-pills {
+	margin-top: 90px;
+	margin-left: -60px;
+}

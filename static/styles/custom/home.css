@@ -1,0 +1,60 @@
+.intro-container {
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 700px;
+}
+.banner {
+	width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+.banner h1 {
+	display: block;
+}
+#icon {
+	height: 50px;
+	margin-left: 5px;
+}
+.intro-container li {
+	font-size: 1.9em;
+	margin-top: 40px;
+	text-decoration: none;
+	list-style-type: none;
+}
+.intro-container img {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+.header1 {
+	font-size: 5.2em;
+}
+#montra {
+	font-size: 1.3em;
+}
+.signup {
+	display: none;
+}
+.intro-list {
+	margin-top: 50px;
+	border-radius: 15px;
+	border: solid grey 1px;
+}
+hr {
+	height: 1px;
+	width: 80%;
+	background-color: black;
+}
+#start p {
+	font-size: 5.4em;
+	text-align: center;
+}
+#start img {
+	cursor: pointer;
+}
+.signup {
+	max-width: 500px;
+	margin-right: auto;
+	margin-left: auto;
+}

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>
+</title>
+{% block styles %}
+{% endblock %}
+</head>
+<body>
+<div class="main-nav">
+	<nav class="navbar navbar-default navbar-fixed-top" style="margin-bottom: 1px;">
+		<div class="container-fluid">
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<!-- <li>
+						<a href="{{ rp }}/">
+							<img class="icon" src="{{ rp }}/static/images/level-one-logo-2.svg" />
+						</a>
+					</li> -->
+					<li>
+						<a id="profile" href="{{ rp }}/profile/">My Courses</a>
+					</li>
+					<li>
+						<a id="compete" href="{{ rp }}/challenge/compete/">Compete</a>
+					</li>
+					<li>
+						<a id="courses" href="{{ rp }}/courses/">Courses</a>
+					</li>
+					<li>
+						<a id="events" href="{{ rp }}/events/">Events</a>
+					</li>
+					<li>
+						<a id="about" href="{{ rp }}/about/">About</a>
+					</li>
+					<!-- <li>
+						<a href="{{ rp }}/contact/">Contact</a>
+					</li> -->
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+							{% if user.first_name %}
+								{{ user.first_name }}
+							{% else %}
+								{{ user.username }}  
+							{% endif %}
+							<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a id="logout" href="{{ rp }}/registration/logout/">Logout</a></li>
+							<li><a id="settings" href="{{ rp }}/settings/">Settings</a></li>
+						</ul>
+					</li>
+					<!-- <li role="menu">
+						<a href="#"><span style="margin-left: 3px;" class="badge">level</span></a>
+					</li> -->
+				</ul>
+			</div><!-- /.navbar-collapse -->
+		</div><!-- /.container-fluid -->
+	</nav>
+</div>
+
+<!-- Sidebar -->
+<!-- <div id="sidebar-wrapper" style="background-color: aliceblue;">
+    <ul class="sidebar-nav">
+    </br>
+        <li>
+            <a href="{{ rp }}/courses/">Courses</a>
+        </li>
+        <li>
+            <a href="{{ rp }}/challenge/">Challenge</a>
+        </li>
+        <li>
+            <a href="{{ rp }}/events/">Events</a>
+        </li>
+        <li>
+            <a href="{{ rp }}/about/">About</a>
+        </li>
+        <li>
+            <a href="{{ rp }}/contact/">Contact</a>
+        </li>
+    </ul>
+</div> -->
+<!-- /sidebar -->
+
+<div class="main-content">
+{% block content %}
+{% endblock %}
+</div>
+{% block scripts %}
+{% endblock %}
+</body>
+</html>

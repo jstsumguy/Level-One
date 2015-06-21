@@ -1,0 +1,61 @@
+.error {
+    height: 30px;
+}
+.error p {
+    font-size: 1.4em;
+    color: red;
+    text-align: center;
+}
+form {
+    margin-top: 20px;
+}
+.login-input input {
+    width: 100%;
+    border-radius: 15px;
+    height: 35px;
+    font-size: 1.3em;
+    padding: 12px;
+}
+.outer {
+    display: table;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.middle {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.inner {
+    margin-left: auto;
+    margin-right: auto; 
+    width: 450px;
+    padding: 30px;
+    border-radius: 15px;
+    background-color: white;
+}
+.inner input {
+    opacity: .7;
+    background: white;
+}
+
+.intro {
+	border: 0px white;
+	border-radius: 18px;
+	color: black;
+	padding: 12px;
+    text-align: center;
+}
+.intro h1 {
+    font-size: 5.4em;
+    float: left;
+}
+.intro span {
+    float: right;
+}
+.intro img {
+    height: 240px;
+    margin-left: 5px;
+}

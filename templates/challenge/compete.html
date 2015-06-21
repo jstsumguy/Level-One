@@ -1,0 +1,183 @@
+{% extends "lessons/base.html" %}
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/plugins/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/plugins/jquery-ui.min.css">
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/custom/base.css">
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/custom/challege-base.css">
+{% endblock %}
+{% block content %}
+<div id="wrapper">
+<!-- Page Content -->
+<div id="page-content-wrapper">
+<div class="container-fluid">
+
+
+<div class="row">
+    <div>
+        <article id="tabs-min" class="tabs course col-md-10 col-md-offset-1">
+            <ul>
+                <li><a class="no" href="#tabs-min-1">Challenge</a></li>
+                <li><a class="no" href="#tabs-min-2">Compete</a></li>
+                <li><a class="no" href="#tabs-min-3">Scores</a></li>
+            </ul>
+          
+            <!-- Daily challenge -->
+            <div id="tabs-min-1">
+                <div class="challenge">
+                    <h1>{{ challenge.title }}</h1>
+                    <h2>Description</h2>
+                    <p>{{ challenge.description }}</p>
+                    <h2>Content</h2>
+                    <p>
+                        {{ challenge.content }}
+                    </p>
+                    <!-- Overall scores -->
+                    {% if solutions %}
+                    <table class="table" style="margin-top: 40px;">
+                        <thead>
+                            <tr>
+                            <th>Student</th>
+                            <th>Score</th>
+                            <th>Level</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for s in solutions %}
+                            <tr class="score" id="{{ s.score }}">
+                            <td class="user">{{ s.user }}</td>
+                            <td class="score">{{ s.score }}</td>
+                            <td class="rank">{{ s.rank }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% endif %}
+
+                    {% if submitted == False %}
+                        <button id="{{ challenge.id }}" data-toggle="modal" data-target="#submit_challenge_modal" 
+                        class="btn btn-default challenge_button">Submit</button>
+                    {% endif %}
+                </div>
+            </div>
+            <!-- Competitive challenge -->
+            <div id="tabs-min-2">
+            Coming soon!
+            </div>
+            <!-- Student scores -->
+            <div id="tabs-min-3">
+            {% if scores %}
+                <div class="scores">
+                    {% for s in scores %}
+                    <a href="{{ rp }}/challenge/score/{{ s.challenge.id }}/">
+                    {{ s.challenge.title }}</a>
+                    {% endfor %}
+                </div>
+            {% else %}
+            <p>Looks like you haven't submitted anything, go ahead and try your first challenge!</p>
+            {% endif %}
+            </div>
+
+        </article>  
+    </div>
+</div>
+<!-- end/ row -->
+
+<!-- challenge modal -->
+<div id="submit_challenge_modal" class="modal fade">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">Challenge</h4>
+        </div>
+        <div class="modal-body">
+            <!-- form goes here -->
+            <form enctype="multipart/form-data" id="challenge_form" method="post" 
+            action="{{ rp }}/challenge/upload_challenge_solution/">
+                <div class="challenge">
+                    <input type="hidden" id="challenge_id" name="id" />
+                    <input type="file" id="file" name="upload" class="form-control" />
+                    <p>Please submit in PDF</p>
+                </div>
+
+                <button id="add-content-submit" type="submit" class="btn btn-info">Submit</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </form> 
+        </div>
+    </div><!-- /.modal-content -->
+    </div>
+</div>
+
+
+
+
+
+</div>
+<!-- end/ fluid -->
+</div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script type='text/javascript' src='{{ rp }}/static/scripts/plugins/jquery-1.11.2.min.js'></script>
+<script type="text/javascript" src="{{ rp }}/static/scripts/plugins/jquery-ui.min.js"></script>
+<script type="text/javascript" src="{{ rp }}/static/scripts/plugins/bootstrap.min.js"></script>
+<script>
+$(function() {
+    $( "#tabs-min" ).tabs();
+});
+</script>
+<script>
+$(document).ready(function(){
+
+var vals = [];    
+var max_value = 0;
+var max_elm;
+if($('table').length) {
+    getMax();
+}
+
+$('.challenge_button').on('click', function(){
+    console.log('clicked');
+    id = $(this).attr('id');
+    console.log('id ' + id);
+    $('#challenge_id').val(id);
+})
+
+/* Get maximum score and highlight it */
+function getMax() {
+    $.each($('.score'), function(i, e) {
+        temp = $(this);
+        vals.push(temp.attr('id'));
+
+        for(var i=0; i < vals.length; i++) {
+            if(temp.attr('id') > max_value) {
+                max_value = temp.attr('id');
+                max_elm = temp;
+            }
+            else if(temp.attr('id') > vals[i]) {
+                max_value = temp.attr('id');
+                max_elm = temp;
+            }
+        }
+    });
+    if(max_elm != undefined) {
+        max_elm.addClass('success');
+    }
+}
+
+
+
+});
+</script
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+

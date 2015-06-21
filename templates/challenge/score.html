@@ -1,0 +1,61 @@
+{% extends "lessons/base.html" %}
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/plugins/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/custom/base.css">
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/custom/challege-base.css">
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/custom/simple-sidebar.css">
+{% endblock %}
+{% block content %}
+<div id="wrapper">
+<!-- Page Content -->
+<div id="page-content-wrapper">
+<div class="container-fluid">
+    <div class="course-container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-10 col-md-offset-1">
+                    <h3 class="title2">{{ challenge.title }}</h3>
+                    <p class="score2">{{ score.score }}%</p>
+                    {% if score.comments %}
+                    <p class="comment">{{ score.comments }}</p>
+                    {% endif %}
+                    <p class="perk">+ 5 xp</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end/ fluid -->
+</div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script type='text/javascript' src='{{ rp }}/static/scripts/plugins/jquery-1.11.2.min.js'></script>
+<script type="text/javascript" src="{{ rp }}/static/scripts/plugins/bootstrap.min.js"></script>
+<script>
+$(document).ready(function(){
+    val = parseInt($('.score2').text());
+    if(0 <= val && val < 50) {
+        $('.score2').css('color', 'red');
+    }
+    else if(50 <= val && val < 75) {
+        $('.score2').css('color', 'yellow');
+    }
+    else if(75 <= val && val < 100) {
+        $('.score2').css('color', 'green');
+    }
+});
+</script>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+

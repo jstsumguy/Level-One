@@ -1,0 +1,148 @@
+{% extends "lessons/base.html" %}
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/plugins/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/custom/base.css">
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/custom/course.css">
+{% endblock %}
+{% block content %}
+<!-- Sidebar -->
+<div id="wrapper">
+<!-- Page Content -->
+<div id="page-content-wrapper">
+    <div class="container-fluid">
+        <!-- breadcrumbs -->
+        <ul class="breadcrumb">
+            <li><a href="{{ rp }}/profile/">My Courses</a></li>
+            <li><a href="{{ rp }}/enrolled/course/{{ course.id }}/">{{ course.name }}</a></li>
+        </ul>
+        <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <h1>
+                {{ course.name }} 
+                <span style="font-size: .4em;">with Will Redington</span>
+            </h1>
+            <span class="badge">Enrolled {{ students }}</span>
+        </div>
+        {% for lesson in lessons %}
+        <div class="article-container">
+        {% if lesson.complete == True %}
+            <div class="col-md-10 col-md-offset-1 article complete">
+            <!-- Compmleted -->
+                <h3>
+                    <a class="lesson-item" href="{{ rp }}/lesson/{{ course.id }}/{{ lesson.id }}">
+                        {{ lesson.name }}
+                    </a>
+                    {% if user.is_staff %}
+                    <!-- <a style="float: right;" id="{{ lesson.id }}" class="remove" href="#">
+                        <i class="glyphicon glyphicon-remove"></i>
+                    </a>
+                    <a style="float: right;" id="{{ lesson.id }}" class="add-content" href="#"
+                    data-toggle="modal" data-target="#add_content_modal">
+                        <i class="glyphicon glyphicon-plus"></i>
+                    </a> -->
+                    {% endif %}
+                    <!-- Checkmark Icon -->
+                    <img class="icon" src="{{ rp }}/static/images/green-checkmark.png" />
+                </h3>
+            </div>
+
+        {% else %}
+            <div class="col-md-10 col-md-offset-1 article">
+            <!-- NOT -->
+                <h3>
+                    <a class="lesson-item" href="{{ rp }}/lesson/{{ course.id }}/{{ lesson.id }}">
+                        {{ lesson.name }}
+                    </a>
+                    {% if user.is_staff %}
+                    <!-- <a style="float: right;" id="{{ lesson.id }}" class="remove" href="#">
+                        <i class="glyphicon glyphicon-remove"></i>
+                    </a>
+                    <a style="float: right;" id="{{ lesson.id }}" class="add-content" href="#"
+                    data-toggle="modal" data-target="#add_content_modal">
+                        <i class="glyphicon glyphicon-plus"></i>
+                    </a> -->
+                    {% endif %}
+                </h3>
+                <div class="collapse">
+                    <p class="description">{{ lesson.description }}</p>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %} 
+
+        {% if user.is_staff %}
+        <div class="col-md-10 col-md-offset-1">
+            <a href="#" id="new_lesson_show">New Lesson</a>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+            <form id="new_lesson_form" onsubmit="return false;">
+                <input type="text" id="title" class="form-control" placeholder="Title" />
+                <input type="text" id="description" class="form-control" placeholder="Description" />
+                <input type="hidden" id="course_id" value="{{ course.id }}" />
+                <button type="submit" class="btn btn-info" id="new_lesson">Submit</button>
+            </form>
+        </div>
+        {% endif %}
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+<!-- Add content modal -->
+<div id="add_content_modal" class="modal fade">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">Add Lesson Content</h4>
+        </div>
+        <div class="modal-body">
+            <!-- form goes here -->
+            <form enctype="multipart/form-data" id="add_content_form" method="POST" 
+            action="{{ rp }}/add_lesson_content/">
+                <div class="movie-container">
+                    <p>Add Movie</p>
+                    <input id="movie_title" type="text" class="form-control" placeholder="Enter movie title" />
+                    <input type="hidden" id="lesson_id" name="lesson_id" />
+                    <input type="file" name="file" class="form-control" />
+                </div>
+
+                <div class="project-container"
+                    <p>Add Project</p>
+                    <input id="project_title" name="project_title" type="text" class="form-control" placeholder="Enter project title" />
+                    <textarea id="project_description" name="project_description" class="form-control" placeholder="Enter project description"></textarea>
+                </div>
+                <button id="add-content-submit" type="submit" class="btn btn-info">Submit</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </form> 
+        </div>
+</div><!-- /.modal-content -->
+</div>
+
+
+</div>
+
+</div>
+{% endblock %}
+{% block scripts %}
+<script type='text/javascript' src='{{ rp }}/static/scripts/plugins/jquery-1.11.2.min.js'></script>
+<script type="text/javascript" src="{{ rp }}/static/scripts/plugins/bootstrap.min.js"></script>
+<script type="text/javascript" src="{{ rp }}/static/scripts/custom/course.js"></script>
+<script type="text/javascript">
+   $(function () {
+        $('.article').on('mouseover', function(event){
+            var x = $(this);
+            elm = x.find('div.collapse');
+            setTimeout(function(){
+                if(elm.is(":hidden")) {
+                    elm.collapse('toggle');
+                }
+            }, 0);
+        })
+        $('.article').on('mouseout', function(event) {
+            if(!elm.is(":hidden")) {
+                setTimeout(function(){elm.collapse('toggle');}, 0);
+            }
+        })
+   });
+</script>
+{% endblock %}

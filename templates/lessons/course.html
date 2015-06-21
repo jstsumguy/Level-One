@@ -1,0 +1,73 @@
+{% extends "lessons/base.html" %}
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/plugins/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/custom/base.css">
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/custom/course.css">
+{% endblock %}
+{% block content %}
+<!-- Sidebar -->
+<div id="wrapper">
+<!-- Page Content -->
+
+<div class="container-fluid">
+<!-- Alert notification -->
+{% if notifications %}
+<div class="notification">
+    <div class="alert alert-success alert-dismissible" role="alert">
+        <button id="{{ notifications.0.id }}" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <p>{{ notifications.0.message }}</p>
+    </div>
+</div>
+{% endif %}
+
+<div class="row">
+	<div class="col-md-10 col-md-offset-1">
+        <h1>
+            {{ course.name }} 
+            <span style="font-size: .4em;">with Will Redington</span>
+            {% if enrolled == False %}
+            <span class="enroll-container"><button id="{{ course.id }}" class="enroll btn btn-default">Enroll</button></span>
+            {% else %}
+            <span class="already-enrolled">Enrolled</span>
+            {% endif %}
+        </h1>
+        <span style="margin-bottom: 10px;" class="badge">Students {{ students }}</span>
+        <article class="course-description">
+        	{{ course.description|safe }}
+        </article>
+        {% if user.is_staff %}
+        <textarea id="edit-course" name="edit-course" class="course-edit">
+            {{ course.description|safe }}
+        </textarea>
+        <input type="hidden" id="{{ course.id }}" class="class_id" />
+        <button id="edit-course-btn" class="btn btn-default">Edit</button>
+        {% endif %}
+    </div>
+</div>
+
+<!-- <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        {% for r in reviews %}
+        <div class="col-md-3">
+            <h2>{{ r.rating }}</h2>
+            <p>{{ r.description }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</div> -->
+
+
+</div>
+
+
+
+<!-- /#page-content-wrapper -->
+</div>
+{% endblock %}
+{% block scripts %}
+<script type='text/javascript' src='{{ rp }}/static/scripts/plugins/jquery-1.11.2.min.js'></script>
+<script type="text/javascript" src="{{ rp }}/static/scripts/plugins/bootstrap.min.js"></script>
+<!-- editor -->
+<script src="http://cdn.ckeditor.com/4.4.7/standard-all/ckeditor.js"></script>
+<script type="text/javascript" src="{{ rp }}/static/scripts/custom/course.js"></script>
+{% endblock %}

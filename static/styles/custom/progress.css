@@ -1,0 +1,29 @@
+.chart-container {
+	height: 450px;
+	padding: 5px;
+}
+#pie_chart {
+	width: 50%;
+	float: left;
+	margin-top: 10px;
+}
+.chart-descriptor {
+	float: right;
+	font-size: 2.3em;
+	margin-right: 15%;
+}
+.chart-container img {
+	margin-top: -9px;
+}
+.level {
+	border-radius: 15px;
+	background-color: #DDDDDD;
+	margin-top: 40px;
+}
+.level h2 {
+	font-size: 4.3em;
+	line-height: 4;
+}
+.level p {
+	font-size: 13.5em;	
+}

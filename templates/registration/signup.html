@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Login</title>
+<!-- Begin styles -->
+<link rel="stylesheet" type="text/css" href="../../static/styles/plugins/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="../../static/styles/custom/login-style.css">
+<link rel="stylesheet" type="text/css" href="../../static/styles/custom/signup.css">
+<link rel="stylesheet" type="text/css" href="../../static/styles/custom/base.css">
+<body>
+<div class="outer">
+	<div class="middle">
+		<div class="inner">
+
+			<div class="intro">
+				<img src="../../static/images/level-one-logo-1.svg" />
+			</div>
+			<h1 style="text-align: center; margin-top: 0px !important;">Join Today!</h1>
+			<form method="post" onsubmit="return false;">
+				<input type="text" class="form-control" placeholder="Username" id="username" />
+				<input type="text" class="form-control" placeholder="Email" id="email" />
+				<input type="password" class="form-control" placeholder="Password" id="password" />
+				<button id="signup" type="submit" class="btn btn-default">Join</button>
+			</form>
+			<!-- End login form -->
+		</div>
+	</div>
+</div>
+<script type='text/javascript' src='../../static/scripts/plugins/jquery-1.11.2.min.js'></script>
+<script type="text/javascript" src="../../static/scripts/plugins/jquery.backstretch.min.js"></script>
+<script type="text/javascript" src="../../static/scripts/custom/signup.js"></script>
+<script>
+$(document).ready(function(){
+	$.backstretch("../../static/images/login_background.svg");
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+{% extends "lessons/base.html" %}
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/plugins/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/custom/base.css">
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/custom/progress.css">
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/custom/profile-style.css">
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/custom/simple-sidebar.css">
+{% endblock %}
+{% block content %}
+<!-- Sidebar -->
+<div id="wrapper">
+<!-- Page Content -->
+<div id="page-content-wrapper">
+    <div class="container-fluid">
+        <h1 class="title" style="margin-bottom: 90px;">My Progress</h1>
+        <div class="chart-container">
+            <div id="pie_chart"></div>
+            <p class="chart-descriptor">Ongoing Courses</p>
+            <img src="{{ rp }}/static/images/angled-left-arrow.jpeg" />
+        </div>
+        <div class="row">
+            <div class="col-md-12 level">
+                <h2 class='col-md-7'>Current Level
+                    <span><i style="top: 8px; left; 25px;" class="glyphicon glyphicon-arrow-right"></i></span>
+                </h2>
+                <p class="col-md-5">{{ rep }}</p>
+            </div>
+    </div>
+</div>
+    <!-- /#page-content-wrapper -->
+</div>
+{% endblock %}
+{% block scripts %}
+<script type='text/javascript' src='{{ rp }}/static/scripts/plugins/jquery-1.11.2.min.js'></script>
+<script type="text/javascript" src="{{ rp }}/static/scripts/plugins/bootstrap.min.js"></script>
+<script type="text/javascript" src="{{ rp }}/static/scripts/plugins/d3.min.js"></script>
+<script type="text/javascript" src="{{ rp }}/static/scripts/d3/progress.js"></script>
+<script type="text/javascript" src='{{ rp }}/static/scripts/d3/init-progress.js'></script>
+{% endblock %}

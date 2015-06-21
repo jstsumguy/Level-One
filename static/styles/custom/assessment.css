@@ -1,0 +1,19 @@
+#add_content_form input {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+.correct {
+	background-color: #00FF7F;
+}
+.radio {
+	display: inline-block !important;
+	margin-right: 20px;
+}
+.tfq-label {
+	display: inline-block !important;
+	margin-right: 20px;
+	font-weight: normal;
+}
+.tfq-label input {
+	margin-right: 8px;
+}

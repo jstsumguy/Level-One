@@ -1,0 +1,67 @@
+{% extends "lessons/base.html" %}
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/plugins/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/custom/base.css">
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/custom/assessment.css">
+{% endblock %}
+{% block content %}
+<!-- Sidebar -->
+<div id="wrapper">
+<!-- Page Content -->
+<div id="page-content-wrapper">
+    <div class="container-fluid">
+    <!-- breadcrumbs -->
+    <ul class="breadcrumb">
+        <li><a href="{{ rp }}/profile/">My Courses</a></li>
+        <li><a href="{{ rp }}/enrolled/course/{{ lesson.course.id }}/">{{ lesson.course.name }}</a></li>
+        <li><a href="{{ rp }}/lesson/{{ lesson.course.id }}/{{ lesson.id }}/">{{ lesson.name }}</a></li>
+    </ul>
+        <div>
+          <!-- Overall Score -->
+          <div class="row">
+                <div class="col-md-10 col-md-offest-1">
+                    <h1>Score {{ score.score }}%</h1>
+                </div>
+            </div>
+        <!-- Mulitple Choice Questions -->
+        {% for q in mc_questions %}
+          <div class="row">
+                <div class="col-md-10 col-md-offest-1">
+                    <h4>{{ q.question }}</h4>
+                <!-- Choices -->
+                {% for choice in q.choices %}
+                <div class="radio">
+                {% if choice.answer %}
+                    <label class="correct"><input checked="checked" type="radio" name="radio{{ choice.mcq }}" 
+                    id="{{ choice.id }}">
+                    {{ choice.choice }}
+                    </label>
+                  {% else %}
+                  <label><input type="radio" name="radio{{ choice.mcq }}" id="{{ choice.id }}" disabled>
+                  {{ choice.choice }}
+                    </label>
+                  {% endif %}
+                </div>
+                {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+        <input type="hidden" id="{{ quiz.id }}" class="quiz_id" />
+        </div>
+    </div>
+</div>
+</div>
+<!-- /#page-content-wrapper -->
+</div>
+{% endblock %}
+{% block scripts %}
+<script type='text/javascript' src='{{ rp }}/static/scripts/plugins/jquery-1.11.2.min.js'></script>
+<script type="text/javascript" src="{{ rp }}/static/scripts/plugins/bootstrap.min.js"></script>
+<script type="text/javascript" src="{{ rp }}/static/scripts/custom/assessment.js"></script>
+{% endblock %}
+
+
+
+
+
+

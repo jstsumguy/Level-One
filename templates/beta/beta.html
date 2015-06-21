@@ -1,0 +1,142 @@
+{% extends "lessons/base.html" %}
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/plugins/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/plugins/jquery-ui.min.css">
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/custom/base.css">
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/custom/beta.css">
+{% endblock %}
+{% block content %}
+<!-- Sidebar -->
+<div id="wrapper">
+<!-- Page Content -->
+
+<div class="container-fluid">
+<!-- Alert notification -->
+{% if notifications %}
+<div class="notification">
+    <div class="alert alert-success alert-dismissible" role="alert">
+        <button id="{{ notifications.0.id }}" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <p>{{ notifications.0.message }}</p>
+    </div>
+</div>
+{% endif %}
+
+<div class="row">
+    <div class="col-md-12">
+        <h1 class="title2">Beta Courses</h1>
+
+        <div class="col-md-6">
+            <div class="head">
+            <h3>How it Works?</h3>
+            <p>
+                Create your course, add lessons, content, and whatever else will make your course better.  
+            </p>
+            <p>
+                After your done, submit your course for approval.  Once approved, your course will now be accessible to the world, with a community of empowered developers constantly adjusting and improving your course till perfection.  
+            </p>
+            <p>
+                After the initial beta phase, which takes roughly 2-3 weeks after submission, your course will be offered to everyone.  Over the course of time, if you recieve high rankings based on courses you've created, you'll earn rewards and prizes.  
+            </p>
+            </div>
+        </div>
+
+        <div class="col-md-6 head">
+            <h3>Why Contribute?</h3>
+            <p>
+                So now you're at a pretty good point.  You've mastered the basics and even
+                have a solid grasp of some of the complexities of programming, but more importantly,
+                you want to share that knowledge with the world.  
+            </p>
+            <p>
+                Despite what stuffy professors may tell you, we believe that the best teachers are the most recent.  It's near impossible to teach someone something if you can't even remeber a time when you didin't know it!  New learners make the best teachers because they recognize specific struggles and hurdles that educators with decades of experience often overlook.   
+            </p>
+        </div>
+        
+
+    </div>
+</div>
+
+<div class="row" style="margin-top: 50px;">
+    <div class="col-md-12">
+        <span style="float: right !important; position: inherit !important;" class="right"><button class="btn btn-default" id="add_course" data-toggle="modal"
+        data-target="#new_course_modal">Add</button></span>
+        {% if courses %}
+        <div class="courses">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <td>Title</td>
+                        <td>Status</td>
+                        <td>Lessons</td>
+                        <td>Views</td>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for c in courses %}
+                    <tr>
+                        <td><a href="./course/{{c.id }}/">{{ c.name }}</a></td>
+                        <td>{{ c.type }}</td>
+                        <td>{{ c.lessons }}</td>
+                        <td>325</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- New Course -->
+<div id="new_course_modal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">New Course</h4>
+            </div>
+            <div class="modal-body">
+                <form id="new_course_form" onsubmit="return false;">
+                    <input class="form-control" id="title" placeholder="Title" />
+                    <input class="form-control" id="description" placeholder="Description" />
+                    <button class="btn btn-default" type="submit">Submit</button>
+                </form>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+<!-- /#page-content-wrapper -->
+</div>
+{% endblock %}
+{% block scripts %}
+<script type='text/javascript' src='{{ rp }}/static/scripts/plugins/jquery-1.11.2.min.js'></script>
+<script type="text/javascript" src="{{ rp }}/static/scripts/plugins/jquery-ui.min.js"></script>
+<script type="text/javascript" src="{{ rp }}/static/scripts/plugins/bootstrap.min.js"></script>
+<script type="text/javascript" src="{{ rp }}/static/scripts/custom/beta.js"></script>
+<script>
+$(function() {
+    $( "#tabs-min" ).tabs();
+});
+</script>
+{% endblock %}

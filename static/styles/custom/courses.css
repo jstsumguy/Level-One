@@ -1,0 +1,76 @@
+.courses-header {
+	text-align: center;
+}
+.courses-header h1 {
+	font-size: 4em;
+	margin-top: 12px;
+}
+.course-selection {
+	text-align: center;
+}
+.course-selection a {
+	position: relative;
+	text-decoration: none;
+	display: inline-block;
+	top: 80px;
+	font-size: 2.0em;
+	cursor: pointer;
+}
+.courses-wrapper {
+	margin-top: 70px;
+}
+.courses-wrapper div.programming {
+	display: none;
+	margin-bottom: 50px;
+}
+.courses-wrapper div.web {
+	display: none;
+	margin-bottom: 50px;
+}
+.courses-wrapper div.ui {
+	display: none;
+	margin-bottom: 50px;
+}
+.course {
+	text-align: center;
+}
+.course a {
+	text-decoration: none;
+	font-size: 2.0em;
+}
+.course p {
+	margin-top: 5px;
+}
+.box {
+	margin-top: 30px;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+.box img {
+	margin-top: 10px;
+	margin-bottom: 12px;
+}
+.box h2 {
+	text-align: center;
+}
+.box p {
+	padding-left: 35px;
+	padding-right: 35px;
+}
+.courses {
+	margin-top: 15px;
+}
+textarea {
+	margin-bottom: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+

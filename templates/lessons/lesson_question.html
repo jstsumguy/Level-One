@@ -1,0 +1,131 @@
+{% extends "lessons/base.html" %}
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/plugins/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/custom/base.css">
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/custom/question.css">
+{% endblock %}
+{% block content %}
+<!-- Sidebar -->
+<div id="wrapper">
+<!-- Page Content -->
+<div id="page-content-wrapper">
+    <div class="container-fluid">
+    <!-- breadcrumbs -->
+    <ul class="breadcrumb col-md-12">
+        <li><a href="{{ rp }}/profile/">My Courses</a></li>
+        <li><a href="{{ rp }}/enrolled/course/{{ lesson.course.id }}/">{{ lesson.course.name }}</a></li>
+        <li><a href="{{ rp }}/lesson/{{ lesson.course.id }}/{{ lesson.id }}/">{{ lesson.name }}</a></li>
+    </ul>
+    <div class="row">
+    <div class="lesson-question-container">
+        <div class="col-md-10 col-md-offset-1 lesson-question">
+            <h3>{{ question.question }}</h3>
+        </div>
+    </div>
+    </div>
+    <div class="row">
+    <div class="lesson-answer-container">
+    {% if answers != None %}
+    <div class="col-md-10 col-md-offset-1"><h3>Top Answers</h3></div>
+    {% for a in answers %}
+        <div class="col-md-10 col-md-offset-1 lesson-answer">
+            <h3>{{ a.answer | safe }}</h3>
+            <p>
+                <i id="{{ a.id }}" class="glyphicon glyphicon-thumbs-up like-answer"></i>
+                <span class="badge">{{ a.likes }}</span>
+            </p>
+            <p>Answered by {{ a.student }}</p>
+        </div>
+    {% endfor %}
+    {% else %}
+    <div class="col-md-10 col-md-offset-1"><h3>This question has no answers yet...</h3></div>
+    </div>
+    {% endif %}
+    </div>
+
+    <!-- Answer question -->
+    {% if level >= 5 %}
+    <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        <textarea style="display: none;" id="answer_question" name="answer_question">
+        </textarea>
+        <button style="margin-top: 23px;" class="btn btn-default" id="answer">Answer It!</button> 
+        <button style="margin-top: 23px; display: none;" 
+        class="btn btn-default" id="submit_answer">Save</button>
+    </div>
+    </div>
+    {% endif %}
+
+
+<!--
+    student = models.ForeignKey(Student)
+    question = models.ForeignKey(Lesson_Question)
+    likes = models.IntegerField(default=0)
+    answer = models.TextField()
+
+-->
+
+
+</div>
+</div>
+</div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script type='text/javascript' src='{{ rp }}/static/scripts/plugins/jquery-1.11.2.min.js'></script>
+<script type="text/javascript" src="{{ rp }}/static/scripts/plugins/bootstrap.min.js"></script>
+<!-- editor -->
+<script src="http://cdn.ckeditor.com/4.4.7/standard-all/ckeditor.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+
+var q_id = "{{ question.id }}";
+
+/* Like Answer */
+$('.like-answer').on('click', function(){
+    console.log('clicked');
+    message = {};
+    message['answer_id'] = $(this).attr('id');
+    $.post('../../../like_answer/', JSON.stringify(message), function(response) {
+        console.log(response);
+        if(response == "success") {
+            location.reload();
+        }
+    })
+})
+
+/* Editor init */
+$('#answer').on('click', function(){
+    $(this).css('display', 'none');
+    if($('#answer_question').length) {
+        CKEDITOR.replace( 'answer_question', {
+            language: 'en',
+            uiColor: '#9AB8F3'
+        });
+        $('#answer_question').fadeIn();
+        $('#submit_answer').fadeIn();
+    }
+})
+
+$('#submit_answer').on('click', function(){
+    $(this).prop("disabled",true);
+    message = {};
+    message.answer = CKEDITOR.instances['answer_question'].getData();
+    message.question = q_id;
+    console.log(message);
+    $.post('../../../new_answer/', JSON.stringify(message), function(response) {
+        console.log(response);
+        if(response == "success") {
+            location.reload();
+        }
+    })
+})
+})
+</script>
+{% endblock %}
+
+
+
+
+
+

@@ -1,0 +1,143 @@
+{% extends "lessons/base.html" %}
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/plugins/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/custom/base.css">
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/custom/courses.css">
+<!-- <link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/custom/simple-sidebar.css"> -->
+{% endblock %}
+{% block content %}
+<!-- Page Content -->
+<div class="container">
+
+<div class="row">
+    <div class="courses-header">
+        <div class="col-md-10 col-md-offset-1">
+            <h1>Level Up Courses
+            </h1>
+        </div>
+        <div class="col-md-4 box">
+            <div>
+                <h2>Timed Sessions</h2>
+                <img src="{{ rp }}/static/images/hourglass.svg" height="60" />
+                <p>
+                    Our courses are offered
+                    at any time for any student
+                    however, to ensure consistent
+                    and strong learning, once
+                    enrolled, the course will be
+                    tracked giving the student
+                    ample time to complete their
+                    course work and to stay 
+                    motivated throughout the 
+                    process.
+                </p>
+            </div>
+        </div>
+        <div class="col-md-4 box">
+            <h2>Suggest a Course</h2>
+<!--             <img src="{{ rp }}/static/images/brain.svg" height="60" />
+ -->            <p>
+                Don’t see a course you 
+                want to see offered?
+                Go ahead and choose the 
+                suggest a course tab,
+                and a team of developers
+                will get started right away!
+            </p>
+            <button id="suggest" class="btn btn-default" 
+            data-toggle="modal" data-target="#suggest_modal">Suggest A Course</button>
+        </div>
+        <div class="col-md-4 box">
+            <h2>For the Love of Learning</h2>
+            <img src="{{ rp }}/static/images/heart.svg" height="60" />
+            <p>
+                Our courses are determined purely 
+                by the people that love to learn.
+                We have an active community of empowered
+                developers, helping anyone intersted in 
+                all things technology to learn and discover
+                at their own pace, and with a skill set that 
+                will take them wherever they may want to go. 
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="courses">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-4 course-selection">
+                <!-- Programming -->
+                <a href="#" id="programming_selector">Programming</a>
+                <img src="{{ rp }}/static/images/web-dev-icon.svg"/>
+            </div>
+            <div class="col-md-4 course-selection">
+                <!-- Web Development -->
+                <a href="#" id="web_selector">Web Development</a>
+                <img src="{{ rp }}/static/images/web-dev-icon2.svg"/>
+            </div>
+            <div class="col-md-4 course-selection">
+                <!-- Front-end Development -->
+                <a href="#" id="ui_selector">UI/UX Design</a>
+                <img src="{{ rp }}/static/images/ui-icon.svg"/>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+<!-- Courses -->
+<div class="courses-wrapper">
+{% for c in courses %}
+{% if c.course_type == 1 %}
+<div class="programming course col-md-4">
+    <a href="{{ rp }}/course/{{ c.id }}/">{{ c.name }}</a>
+    <p>{{ c.quick_description }}</p>
+</div>
+{% endif %}
+{% if c.course_type == 2 %}
+<div class="web course col-md-4">
+    <a href="{{ rp }}/course/{{ c.id }}/">{{ c.name }}</a>
+    <p>{{ c.quick_description }}</p>
+</div>
+{% endif %}
+{% if c.course_type == 3 %}
+<div class="ui course col-md-4">
+    <a href="{{ rp }}/course/{{ c.id }}/">{{ c.name }}</a>
+    <p>{{ c.quick_description }}</p>
+</div>
+{% endif %}
+{% endfor %}
+<!-- / courses-wrapper -->
+</div>
+
+<!-- Suggest course modal -->
+<div id="suggest_modal" class="modal fade">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">Suggest A Course</h4>
+        </div>
+        <div class="modal-body">
+            <form id="add_content_form" onsubmit="return false;">
+                <textarea class="form-control" id="suggestion_text" 
+                placeholder="Enter a course suggestion"></textarea>
+                <button type="submit" class="btn btn-info">Submit</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </form> 
+        </div>
+    </div><!-- /.modal-content -->
+    </div>
+</div>
+
+</div>
+<!-- /container fluid -->
+
+<!-- /#page-content-wrapper -->
+</div>
+{% endblock %}
+{% block scripts %}
+<script type='text/javascript' src='{{ rp }}/static/scripts/plugins/jquery-1.11.2.min.js'></script>
+<script type="text/javascript" src="{{ rp }}/static/scripts/plugins/bootstrap.min.js"></script>
+<script type="text/javascript" src="{{ rp }}/static/scripts/custom/courses.js"></script>
+{% endblock %}

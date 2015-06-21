@@ -1,0 +1,42 @@
+{% extends "lessons/base.html" %}
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/plugins/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/custom/base.css">
+{% endblock %}
+{% block content %}
+<div id="wrapper">
+<div class="container-fluid">
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="col-md-10 col-md-offset-1">
+			<div class="col-md-2">
+				<p>{{ article.author.user.first_name }} {{ article.author.user.last_name }}</p>
+				<p>{{ article.updated|date:'F dS, Y' }}</p>
+			</div>
+			<div class="col-md-8">
+				<h1>{{ article.name }}</h1>
+				<article>
+					{{ article.content }}
+				</article>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+
+
+
+<!-- /container -->
+</div>
+
+
+
+<!-- /#page-content-wrapper -->
+</div>
+{% endblock %}
+{% block scripts %}
+<script type='text/javascript' src='{{ rp }}/static/scripts/plugins/jquery-1.11.2.min.js'></script>
+<script type="text/javascript" src="{{ rp }}/static/scripts/plugins/bootstrap.min.js"></script>
+{% endblock %}

@@ -1,0 +1,76 @@
+.scores {
+    border-radius: 15px;
+    background-color: #f5f5f5;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+.scores a {
+    color: #337ab7;
+    font-size: 2em;
+}
+
+.upload-container {
+	margin-top: 30px;
+	background-color: #e7e7e7;
+	border-radius: 15px;
+	padding: 10px;
+}
+.upload-container button {
+	margin-top: 10px;
+}
+.upload-container p {
+	font-size: 1.4em;
+}
+.help {
+	font-size: .9em !important;
+	color: red;
+}
+.title2 {
+	font-size: 6.0em;
+}
+.score2 {
+	font-size: 14em;
+}
+.comment {
+	font-size: 2em;
+}
+.perk {
+	font-size: 8em;
+}
+/* tabs */
+#tabs-min { 
+    background: transparent; 
+    border: none; 
+} 
+#tabs-min .ui-widget-header { 
+    background: transparent; 
+    border: none; 
+    border-bottom: 1px solid #c0c0c0; 
+    -moz-border-radius: 0px; 
+    -webkit-border-radius: 0px; 
+    border-radius: 0px; 
+} 
+#tabs-min .ui-tabs-nav .ui-state-default { 
+    background: transparent; 
+    border: none;
+    outline:none;
+} 
+#tabs-min .ui-tabs-nav .ui-state-active { 
+    border: none; 
+ 	outline:none;
+} 
+#tabs-min .ui-tabs-nav .ui-state-default a { 
+	font-size: 1.5em;
+}
+#tabs-min .ui-tabs-nav .ui-state-default a { 
+    color: #c0c0c0; 
+} 
+#tabs-min .ui-tabs-nav .ui-state-active a { 
+    color: #459e00; 
+}
+a.no {border:0; outline:none;}
+a.no:focus {outline: none; }
+input:focus {outline: none; }
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+}

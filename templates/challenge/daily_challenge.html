@@ -1,0 +1,67 @@
+{% extends "lessons/base.html" %}
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/plugins/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/custom/base.css">
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/custom/challege-base.css">
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/custom/simple-sidebar.css">
+{% endblock %}
+{% block content %}
+<div id="wrapper">
+<!-- Page Content -->
+<div id="page-content-wrapper">
+<div class="container-fluid">
+    <h1 class="title">Daily Challenge</h1>
+    <div class="course-container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-10 col-md-offset-1">
+                    <h3>{{ challenge.title }}</h3>
+                    <p class="description">
+                        {{ challenge.description }}
+                    </p>
+                    <p class="content">{{ challenge.content }}</p>
+                </div>
+            </div>
+            <div class="col-md-4 col-md-offset-1">
+                <div>
+                {% if submitted == False %}
+                <div class="upload-container">
+                    <form action="{{ rp }}/challenge/upload_challenge_solution/" method="post" 
+                    enctype="multipart/form-data">
+                        <p>Upload your solution</p>
+                        <input type="hidden" name="id" value="{{ challenge.id }}" />
+                        <input type="file" name="upload" class="form-control file" />
+                        <p class="help">We currently only accept PDF</p>
+                        <button class="btn btn-info" id="upload-form" type="submit">
+                            Submit
+                        </button>
+                    </form>
+                </div>
+                {% else %}
+                    <a href="{{ rp }}/challenge/score/{{ challenge.id }}/" class="btn btn-info">View My Score</a>
+                {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end/ fluid -->
+</div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script type='text/javascript' src='{{ rp }}/static/scripts/plugins/jquery-1.11.2.min.js'></script>
+<script type="text/javascript" src="{{ rp }}/static/scripts/plugins/bootstrap.min.js"></script>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+

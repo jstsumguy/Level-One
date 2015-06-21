@@ -1,0 +1,298 @@
+{% extends "lessons/base.html" %}
+{% block styles %}
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link href="//vjs.zencdn.net/4.12/video-js.css" rel="stylesheet">
+<script src="//vjs.zencdn.net/4.12/video.js"></script>
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/plugins/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/custom/base.css">
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/custom/beta-lesson-style.css">
+{% endblock %}
+{% block content %}
+<!-- Sidebar -->
+<div id="wrapper">
+<!-- Page Content -->
+<div id="page-content-wrapper">
+    <div class="container-fluid">  
+
+<!-- Tabbed content -->
+<article id="tabs-min" class="tabs course col-md-10 col-md-offset-1">
+
+            <ul>
+                <li><a class="no" href="#tabs-min-1">Lesson</a></li>
+                <li><a class="no" href="#tabs-min-2">Project</a></li>
+                <li><a class="no" href="#tabs-min-3">Questions</a></li>
+                <li><a class="no" href="#tabs-min-4">Assessment</a></li>
+            </ul>
+
+            <input type="hidden" value="{{ lesson.id }}" id="lesson_id" />
+
+            <!-- Movie -->
+            <div id="tabs-min-1">
+                {% if movies %}
+                    {% for movie in movies %}
+                    <div class="movie">
+                        <video id="example_video_1" class="video-js vjs-default-skin"
+                          controls preload="auto" width="900" height="560"
+                          >
+                         <source src="{{ rp }}/media/{{ movie.url }}/" type='video/mp4' />
+                        </video>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="no-movie">
+                        <form enctype="multipart/form-data" id="add_content_form" method="POST" 
+                        action=".">
+                            {% csrf_token %}
+                            <div class="movie-container">
+                                <p>Add Movie</p>
+                                <input id="movie_title" type="text" class="form-control" placeholder="Enter movie title" />
+                                <input type="hidden" value="{{ lesson.id }}" name="lesson_id" />
+                                <input type="file" name="file" class="form-control" />
+                            </div>
+
+                            <button id="add-content-submit" type="submit" class="btn btn-info">Submit</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </form> 
+                    </div>
+                {% endif %}
+
+                <div>
+                    <article class="lesson-content">{{ lesson.content|safe }}</article>
+                </div>
+                <!-- Edit -->
+                <div class="edit-lesson-content" style="display:none;">
+                    <textarea id="edit-lesson" name="edit-lesson">
+                        {{ lesson.content }}
+                    </textarea>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-default" id="edit">Edit</button>
+                </div>
+            </div>
+
+
+            <!-- Project -->
+            <div id="tabs-min-2">
+            {% if project %}
+                <div>
+                    <textarea id="edit_project">
+                        {{ project.description|safe }}
+                    </textarea>
+                    <input type="hidden" id="project_id" value="{{ project.id }}" />
+                </div>
+                <button id="edit_project_button" class="btn btn-default">Edit</button>
+            {% else %}
+                <div>
+                    <textarea id="edit_project">
+                        {{ project.description|safe }}
+                    </textarea>
+                </div>
+                <button id="edit_project_button" class="btn btn-default">Edit</button>
+            {% endif %}
+            </div>
+
+
+            <!-- Questions -->
+            <div id="tabs-min-3">
+                <div class="content-section questions" style="margin-bottom: 15px !important;">
+                {% if questions %}
+                    <div id="ask_question_init" class="success">
+                        Ask
+                    </div>
+
+                    {% for q in questions %}
+                        <div class="question">
+                            <a href="{{ rp }}/lesson_question/{{ lesson.id }}/{{ q.id }}/">{{ q.question }} <span class="badge">{{ q.likes }}</span>
+                            </a>
+                            <span><i id="{{ q.id }}" class="glyphicon glyphicon-thumbs-up like"></i></span>
+                        </div>
+                    {% endfor %}
+                <!-- Ask a question -->
+                <div class="row">
+                    <div class="ask-question-container content-section" style="margin-left: 14px; margin-top: 20px; display: none;">
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <button class="btn btn-success ask" id="{{ student.id }}" 
+                                type="button">Ask</button>
+                            </span>
+                            <input type="text" class="form-control" id="question" placeholder="Ask your own question">
+                        </div><!-- /input-group -->
+                    </div><!-- /.col-lg-6 -->
+                </div><!-- /.row -->
+                {% else %}
+                <!-- Ask a question -->
+                <div class="row">
+                    <div class="ask-question-container content-section">
+                            <input type="text" class="form-control" id="question" 
+                            placeholder="Ask your own question">
+                            <button class="btn btn-default ask" id="{{ student.id }}">Ask</button>
+                    </div><!-- /.col-lg-6 -->
+                </div><!-- /.row -->
+                {% endif %}
+                </div>
+            </div>
+
+
+            <!-- Quiz -->
+            <div id="tabs-min-4">
+                <!-- <div class="content-section col-md-10 col-md-offset-1"><hr></div>
+                    {% if user.is_staff %}
+                        <div class="col-md-10 col-md-offset-1" style="margin-bottom: 40px;">
+                            <button class="btn btn-default" data-toggle="modal" data-target="#new_quiz_modal">Add Quiz</button>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div id="new_quiz_modal" class="modal fade">
+                    <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Add Quiz</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form id="new_quiz_form" onsubmit="return false;">
+                                <input type="text" class="form-control" placeholder="Enter name" id="quiz_name" />
+                                <p>Date: <input type="text" id="datepicker"></p>
+                            </form> 
+                            <button id="new_quiz" type="submit" class="btn btn-info">Submit</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                </div> -->
+                Quiz content will go here
+
+            </div>
+            <!-- end/tabs -->
+        </article>  
+
+    <!-- /#page-content-wrapper -->
+</div>
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript" src="{{ rp }}/static/scripts/plugins/bootstrap.min.js"></script>
+<!-- editor -->
+<script src="http://cdn.ckeditor.com/4.4.7/standard-all/ckeditor.js"></script>
+<script type="text/javascript" src="{{ rp }}/static/scripts/custom/beta.js"></script>
+<script>
+  $(function() {
+    $( "#datepicker" ).datepicker();
+  });
+  $(function() {
+    $( "#tabs-min" ).tabs();
+});
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+
+    var lesson_id = "{{ lesson.id }}";
+
+    $('#ask_question_init').on('click', function(){
+        $('.ask-question-container').fadeIn();
+    })
+
+    $('#edit').on('click', function(){
+        if(!$(this).hasClass('clicked')) {
+            $(this).removeClass('btn-info');
+            $(this).addClass('clicked');
+            $(this).addClass('btn-success');
+            $(this).text("Save");
+            $('.lesson-content').css('display', 'none');
+            $('.edit-lesson-content').css('display', 'block');
+        }
+        else {
+            console.log('save clicked');
+            message = {};
+            message['lesson_id'] = {{ lesson.id }};
+            message['content'] = CKEDITOR.instances['edit-lesson'].getData();
+            $.post('../../../../edit_lesson/', JSON.stringify(message), function(response) {
+                console.log(response);
+                if(response == "success") {
+                    location.reload();
+                }
+            })
+        }
+    })
+
+    $('.ask').on('click', function(){
+        message = {};
+        message['question'] = $('#question').val();
+        message['student_id'] = $(this).attr('id');
+        message['lesson_id'] = {{ lesson.id }};
+
+        console.log(JSON.stringify(message));
+        $.post('../../../../new_question/', JSON.stringify(message), function(response) {
+            console.log(response);
+            if(response == "success") {
+                location.reload();
+            }
+        })
+    })
+
+    $('.like').on('click', function(){
+        console.log('clicked');
+        message = {};
+        message['question_id'] = $(this).attr('id');
+
+        $.post('../../../../like_question/', JSON.stringify(message), function(response) {
+            console.log(response);
+            if(response == "success") {
+                location.reload();
+            }
+            else if(response == "exists") {
+                console.log("Already liked that question");
+            }
+        })
+    })
+
+    if($('#edit-lesson').length) {
+        CKEDITOR.replace( 'edit-lesson', {
+            language: 'en',
+            uiColor: '#9AB8F3'
+        });
+    }
+
+    if($('#edit_project').length) {
+        CKEDITOR.replace( 'edit_project', {
+            language: 'en',
+            uiColor: '#9AB8F3'
+        });
+    }
+
+
+
+    $('#new_quiz').click(function(){
+        message = {};
+        message.name = $('#quiz_name').val();
+        message.lesson = lesson_id;
+        message.date = $('#datepicker').val();
+        console.log(message);
+        $.post('../../../../new_quiz/', JSON.stringify(message), function(response) {
+            console.log(response);
+            if(response == 'True'){
+                location.reload();
+            }
+        })
+    })
+
+    $('#add_question').on('click', function(){
+        new_question = $('.question').html();
+        $('#new_quiz_form').append(new_question);
+    })
+
+});
+</script>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+

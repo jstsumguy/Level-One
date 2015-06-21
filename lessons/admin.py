@@ -1,0 +1,22 @@
+from lessons.models import *
+from django.contrib import admin
+
+admin.site.register(Course)
+admin.site.register(Lesson)
+admin.site.register(Student)
+admin.site.register(Review)
+admin.site.register(Challenge)
+admin.site.register(Event)
+admin.site.register(Movie)
+admin.site.register(Challenge_Score)
+admin.site.register(Lesson_Project)
+admin.site.register(Lesson_Question_Answer)
+admin.site.register(Quiz)
+admin.site.register(Multiple_Choice_Question)
+admin.site.register(Quiz_Question_Choice)
+admin.site.register(Quiz_Score)
+admin.site.register(Lesson_Progress)
+admin.site.register(Lesson_Question)
+admin.site.register(Course_Lesson_Activity)
+admin.site.register(Article)
+admin.site.register(Level)

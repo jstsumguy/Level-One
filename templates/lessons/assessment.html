@@ -1,0 +1,151 @@
+{% extends "lessons/base.html" %}
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/plugins/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/custom/base.css">
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/custom/assessment.css">
+{% endblock %}
+{% block content %}
+<!-- Sidebar -->
+<div id="wrapper">
+<!-- Page Content -->
+<div id="page-content-wrapper">
+    <div class="container-fluid">
+    <!-- breadcrumbs -->
+    <ul class="breadcrumb">
+        <li><a href="{{ rp }}/profile/">My Courses</a></li>
+        <li><a href="{{ rp }}/enrolled/course/{{ lesson.course.id }}/">{{ lesson.course.name }}</a></li>
+        <li><a href="{{ rp }}/lesson/{{ lesson.course.id }}/{{ lesson.id }}/">{{ lesson.name }}</a></li>
+    </ul>
+        <div>
+        <!-- Mulitple Choice Questions -->
+        {% for q in mc_questions %}
+	        <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <h4>{{ q.question }}</h4>
+                <!-- Choices -->
+                {% for choice in q.choices %}
+                <div class="radio">
+                    <label><input class="mcq" type="radio" name="radio{{ choice.mcq }}" id="{{ choice.id }}">{{ choice.choice }}
+                    </label>
+                </div>
+                {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+        <!-- True/false questions -->
+        {% for q in tfq %}
+          <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <h4>{{ q.question }}</h4>     
+                    <label class="tfq-label"><input class="tfq" name="tfq{{q.id }}" value="True" type="radio" id="{{ q.id }}">True
+                    </label>  
+
+                    <label class="tfq-label"><input class="tfq" name="tfq{{q.id }}" value="False" type="radio" id="{{ q.id }}">False
+                    </label>        
+                </div>
+            </div>
+        {% endfor %}
+        <input type="hidden" id="{{ quiz.id }}" class="quiz_id" />
+        {% if user.is_staff %}
+
+        <button class="btn btn-info" id="add" 
+        data-toggle="modal" data-target="#add_question_modal">Add</button>
+        {% endif %}
+        {% if score == None %}
+        <button class="btn btn-info" id="submit">Submit</button>
+        {% else %}
+        <a href="{{ rp }}/assessment_result/{{ lesson.id }}/{{ quiz.id }}/">View My Score</a>
+        {% endif %}
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Add Question -->
+<div id="add_question_modal" class="modal fade">
+  <div class="modal-dialog">
+  <div class="modal-content">
+  <div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <h4 class="modal-title">Add Question</h4>
+  </div>
+  <div class="modal-body">
+    <select id="question_type">
+      <option value="mcq">Multiple Choice Question</option>
+      <option value="tfq">True False Question</option>
+    </select>
+    <form id="add_content_form" onsubmit="return false;">
+      <div class="question">
+        <input class="multiple_choice_question" type="text" class="form-control" placeholder="Question" />
+
+        <div class="form-inline choice-container">
+          <div class="form-group">
+            <input type="radio" id="choice1rdo" name="1" value="from" data-toggle="radio">
+          </div>
+          <div class="form-group">
+            <input class="form-control choice" type="text" placeholder="Enter a choice">
+          </div>
+        </div>
+
+        <div class="form-inline choice-container">
+          <div class="form-group">
+            <input type="radio" id="choice1rdo" name="1" value="from" data-toggle="radio">
+          </div>
+          <div class="form-group">
+            <input class="form-control choice" type="text" placeholder="Enter a choice">
+          </div>
+        </div>
+
+        <div class="form-inline choice-container">
+          <div class="form-group">
+            <input type="radio" id="choice1rdo" name="1" value="from" data-toggle="radio">
+          </div>
+          <div class="form-group">
+            <input class="form-control choice" type="text" placeholder="Enter a choice">
+          </div>
+        </div>
+
+        <div class="form-inline choice-container">
+          <div class="form-group">
+            <input type="radio" name="time" value="1" data-toggle="radio">
+          </div>
+          <div class="form-group">
+            <input class="form-control choice" type="text" placeholder="Enter a choice">
+          </div>
+        </div>
+
+      </div>
+      <button id="add_question" type="submit" class="btn btn-default">Submit</button>
+    </form> 
+
+    <!-- True/false questions -->
+    <form id="tfq_form" style="display: none;" onsubmit="return false;">
+      <input type="text" class="form-control" id="tf_question" placeholder="Question" />
+      <select id="tf_type">
+        <option value="true">True</option>
+        <option value="false">False</option>
+      </select>
+      <button id="add_tf_question" type="submit" class="btn btn-default">Submit</button>
+    </form>
+</div>
+<!-- </div> -->
+
+
+</div>
+
+
+<!-- /#page-content-wrapper -->
+</div>
+{% endblock %}
+{% block scripts %}
+<script type='text/javascript' src='{{ rp }}/static/scripts/plugins/jquery-1.11.2.min.js'></script>
+<script type="text/javascript" src="{{ rp }}/static/scripts/plugins/bootstrap.min.js"></script>
+<script type="text/javascript" src="{{ rp }}/static/scripts/custom/assessment.js"></script>
+{% endblock %}
+
+
+
+
+
+

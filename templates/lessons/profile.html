@@ -1,0 +1,233 @@
+{% extends "lessons/base.html" %}
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/plugins/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/plugins/jquery-ui.min.css">
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/custom/base.css">
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/custom/profile-style.css">
+{% endblock %}
+{% block content %}
+<div id="wrapper">
+<div id="page-content-wrapper">
+<div class="container-fluid">
+
+{% if notifications %}
+<div class="notification">
+    <div class="alert alert-success alert-dismissible" role="alert">
+        <button id="{{ notifications.0.id }}" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <p>{{ notifications.0.message }}</p>
+    </div>
+</div>
+{% endif %}
+
+<!-- XP Bar -->
+<div class="row">
+    <div class="experience col-md-10 col-md-offset-1">
+        <p id="level">Level <span class="badge">{{ level }}</span></p>
+        <p style="font-size: 2em;">XP <span id="xp"></span></p>
+        <div id="progressbar"></div>
+    </div>
+</div>
+
+<!-- Begin tab content -->
+<div class="row">
+    <div>
+        <article id="tabs-min" class="tabs course col-md-10 col-md-offset-1">
+            <ul>
+                <li><a class="no" href="#tabs-min-0">News</a></li>
+                <li><a class="no" href="#tabs-min-5">Scores</a></li>
+                <li><a class="no" href="#tabs-min-1">Programming</a></li>
+                <li><a class="no" href="#tabs-min-2">Web Development</a></li>
+                <li><a class="no" href="#tabs-min-3">UI/UX Design</a></li>
+                <li><a class="no" href="#tabs-min-4">Beta</a></li>
+            </ul>
+            <div id="tabs-min-5">
+            {% if scores %}
+                {% for s in scores %}
+                <div class="col-md-9 score">
+                    <a  href="#" id="{{ s.id }}">{{ s.quiz.name }} | {{ s.quiz.lesson.course.name }}</a>
+                    <span>{{ s.score }}%</span>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p>Looks like you haven't submitted anything yet</p>
+            {% endif %}
+            </div>
+
+            <div id="tabs-min-0" class="news">
+                {% for a in articles %}
+                {% if a.article_type == 1 %}
+                <div class="news-article">
+                    <a href="{{ rp }}/article/{{ a.id }}/">{{ a.name }}</a>
+                    {% if a.content %}
+                        <p>{{ a.content|slice:":130"}}</p>
+                    {% endif %}
+                </div>
+                {% elif a.article_type == 0 %}
+                <div class="news-article">
+                    <a href="{{ rp }}/article/static/{{ a.path }}/">{{ a.name }}</a>
+                    {% if a.content %}
+                        <p>{{ a.content|slice:":130"}}</p>
+                    {% endif %}
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+
+            <div id="tabs-min-1">
+                <div class="side">
+                    <h2>My Progress</h2>
+                    <div class="lesson_side">
+                        <!-- <h2 class="lesson_title"></h2>
+                        <p class="lesson_description"></p> -->
+                    </div>
+                    <!-- <div class="students">
+                        <h2>Top Students</h2>
+                        <div class="top_student_container">
+                        </div>
+                    </div> -->
+                </div>
+                {% for c in courses %}
+                {% if c.course_type == 1 %} 
+                <div class="sect">       
+                    <a id="{{ c.id }}" href="{{ rp }}/enrolled/course/{{ c.id }}/">{{ c.name }}</a>
+                    <span class="more_icon" id="{{ c.id }}"><i class="more glyphicon glyphicon-circle-arrow-right"></i></span>
+                    <span><i id="{{ c.id }}" class="remove trash glyphicon glyphicon-trash"></i></span>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+                
+            <div id="tabs-min-2">
+                <div class="side">
+                    <h2>My Progress</h2>
+                    <div class="lesson_side">
+                        <!-- <h2 class="lesson_title"></h2>
+                        <p class="lesson_description"></p> -->
+                    </div>
+                    <!-- <div class="students">
+                        <h2>Top Students</h2>
+                        <div class="top_student_container">
+                        </div>
+                    </div> -->
+                </div>
+                {% for c in courses %}
+                {% if c.course_type == 2 %} 
+                <div class="sect">       
+                    <a id="{{ c.id }}" href="{{ rp }}/enrolled/course/{{ c.id }}/">{{ c.name }}</a>
+                    <span class="more_icon" id="{{ c.id }}"><i class="more glyphicon glyphicon-circle-arrow-right"></i></span>
+                    <span><i id="{{ c.id }}" class="remove trash glyphicon glyphicon-trash"></i></span>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+
+            <div id="tabs-min-3">
+                <div class="side">
+                    <h2>My Progress</h2>
+                    <div class="lesson_side">
+                        <!-- <h2 class="lesson_title"></h2>
+                        <p class="lesson_description"></p> -->
+                    </div>
+                    <!-- <div class="students">
+                        <h2>Top Students</h2>
+                        <div class="top_student_container">
+                        </div>
+                    </div> -->
+                </div>
+                {% for c in courses %}
+                {% if c.course_type == 3 %} 
+                <div class="sect">       
+                    <a id="{{ c.id }}" href="{{ rp }}/enrolled/course/{{ c.id }}/">{{ c.name }}</a>
+                    <span class="more_icon" id="{{ c.id }}"><i class="more glyphicon glyphicon-circle-arrow-right"></i></span>
+                    <span><i id="{{ c.id }}" class="remove trash glyphicon glyphicon-trash"></i></span>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+
+            <div id="tabs-min-4">
+                <div>
+                {% if beta %}
+                    {% for b in beta %}
+                    <div class="beta-course">
+                        <a href="{{ rp }}/beta/course/{{ b.id }}/">{{ b.name }}</a>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p>Looks like you don't have any courses yet</p>
+                {% endif %}
+                    <a class="btn btn-default" href="{{ rp }}/beta/">Open Beta Manager</a>
+                </div>
+            </div>
+
+        </article>  
+    </div>
+</div>
+<!-- end /row -->
+
+</div>
+<!-- end/container fluid -->
+</div>
+</div>
+<!-- /#page-content-wrapper -->
+</div>
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript" src="{{ rp }}/static/scripts/plugins/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="{{ rp }}/static/scripts/plugins/jquery-ui.min.js"></script>
+<script type="text/javascript" src="{{ rp }}/static/scripts/plugins/jquery.knob.js"></script>
+<script type="text/javascript" src="{{ rp }}/static/scripts/plugins/bootstrap.min.js"></script>
+<script type="text/javascript" src="{{ rp }}/static/scripts/custom/profile.js"></script>
+<script>
+$(function() {
+    $( "#tabs-min" ).tabs();
+});
+$(function() {
+    $( "#progressbar" ).progressbar({
+        value: 1
+    });
+    $("#progressbar .ui-progressbar-value").animate(
+    {
+        width: "{{ xp }}%",
+    }, {queue: false, duration: 1500});
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+/* Animate XP bar */
+var xp = parseInt("{{ xp }}");
+$({percentage: 0}).stop(true).animate({percentage: xp}, {
+    duration : 1800,
+    easing: "swing",
+    step: function () {
+        $('#xp').text(Math.round(this.percentage));
+    }
+})
+
+
+$('.section2').on('mouseover', function(event){
+    var x = $(this);
+    elm = x.find('div.collapse');
+    setTimeout(function(){
+        if(elm.is(":hidden")) {
+            elm.collapse('toggle');
+        }
+    }, 0);
+})
+$('.section2').on('mouseout', function(event) {
+    if(!elm.is(":hidden")) {
+        setTimeout(function(){elm.collapse('toggle');}, 0);
+    }
+})
+
+}) // end of document
+</script>
+{% endblock %}
+
+
+
+
+
+

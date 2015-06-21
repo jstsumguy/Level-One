@@ -1,0 +1,27 @@
+.title {
+	margin-bottom: 20px !important;
+}
+.about {
+	margin-top: 40px;
+}
+.about p {
+	line-height: 2.2;
+}
+.about h2 {
+	text-align: center;
+}
+.about hr {
+	width: 50%;
+}
+.date {
+	font-size: 2.2em;
+	text-align: center;
+	margin-bottom: 50px;
+}
+/*.register {
+	margin-bottom: 150px;
+	margin-top: 50px;
+}*/
+/*.register {
+	text-align: center;
+}*/

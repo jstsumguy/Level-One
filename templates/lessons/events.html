@@ -1,0 +1,93 @@
+{% extends "lessons/base.html" %}
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/plugins/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/custom/base.css">
+<link rel="stylesheet" type="text/css" href="{{ rp }}/static/styles/custom/events-style.css">
+{% endblock %}
+{% block content %}
+<div id="wrapper">
+<!-- Page Content -->
+<div id="page-content-wrapper">
+<div class="container-fluid">
+    <h1 class="title">{{ event.name }}</h1>
+    <p class="date">11/9/2015</p>
+    <hr>
+    <div class="course-container">
+    {% if registered == False %}
+    <div class="row">
+        <form class="register" onsubmit="return false;">
+            <div>
+                <div class="input-group">
+                    <div class="register">
+                        <button id="{{ event.id }}" class="btn btn-success register-btn" type="submit">
+                        Register
+                        </button>
+                    </div>
+                </div><!-- /input-group -->
+            </div><!-- /.col-lg-6 -->
+        </form>
+    </div>
+    {% endif %}
+    <div class="course-container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 about">
+                <h2>About</h2>
+                <hr>
+                <p>
+                    With collective power of a huge community of active learners and developers,
+                    the LevelUp 2015 Fall Hackathon, is a joint venture designed to insipre and
+                    invigorate aspiring developers and learns alike to create something incredible.
+                </p>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 about">
+                <h2>Collaborate</h2>
+                <hr>
+                <p>
+                    Hackathons are the perfect place to learn something new.  
+                    First register either as a team, or an individual.  Individuals
+                    will be assigned to other individuals.  
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 about">
+                <h2>Design</h2>
+                <hr>
+                <p>
+                    Once the teams have been formed,
+                    your team will be given a choice of exciting projects to work on.  You and
+                    your team are allowed to use any technology you want but it must be completed
+                    within 12 hours.  Hackathons are what inspire next gen tech and developers to think
+                    creatively in a think-tank of like-minded people. 
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 about">
+                <h2>Develop</h2>
+                <hr>
+                <p>
+                    Work around the clock, developing with your team, fueled by pure adrenaline,
+                    competing against other teams in a battle to the death.  This is what hackathons
+                    are all about.  See rankings live as they happen, and get live collaboration 
+                    throughout the entire event.  
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end/ fluid -->
+</div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script type='text/javascript' src='{{ rp }}/static/scripts/plugins/jquery-1.11.2.min.js'></script>
+<script type="text/javascript" src="{{ rp }}/static/scripts/plugins/bootstrap.min.js"></script>
+<script type="text/javascript" src="{{ rp }}/static/scripts/custom/register-event.js"></script>
+{% endblock %}
+
+
